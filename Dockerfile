@@ -35,7 +35,7 @@ RUN npm config set registry http://registry.npmjs.org/
 RUN npm install
 COPY . /app
 RUN npm run build --prod
-#RUN cp -r ./dist/frontend/. /usr/share/nginx/html
+RUN cp -r ./dist/frontend/. /usr/share/nginx/html
 COPY --from=build-step /app/dist/angular-tour-of-heroes /usr/share/nginx/html
 #Segunda Etapa
 FROM nginxinc/nginx-unprivileged
