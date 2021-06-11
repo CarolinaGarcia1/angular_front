@@ -36,9 +36,10 @@ RUN npm install
 COPY . /app
 RUN npm run build --prod
 #RUN cp -r ./dist/angular-tour-of-heroes/. /usr/share/nginx/html
-COPY --from=build-step /app/dist/angular-tour-of-heroes /usr/share/nginx/html
+
 #Segunda Etapa
 FROM nginxinc/nginx-unprivileged
 USER root
-RUN chgrp -R root /var/cache/nginx/var/run/var/log/nginx &&\
-chmod -R 770 /var/cache/nginx/var/run/var/log/nginx
+COPY --from=build-step /app/dist/angular-tour-of-heroes /usr/share/nginx/html
+# RUN chgrp -R root /var/cache/nginx/var/run/var/log/nginx &&\
+# chmod -R 770 /var/cache/nginx/var/run/var/log/nginx
